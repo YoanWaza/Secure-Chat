@@ -21,6 +21,10 @@
 2. Navigate to the application URL (e.g., `http://localhost:3000`)
 3. You will see the login/registration screen
 
+- **Live Demo:** [https://secure-chat-b4pr.onrender.com](https://secure-chat-b4pr.onrender.com)
+- The app uses HTTPS and is hosted on Render.
+- If the app takes a minute to load, it is "waking up" from Render's free tier sleep mode.
+
 ## User Registration
 
 ### Step-by-Step Registration Process
@@ -244,6 +248,10 @@
 - Close other applications
 - Restart your browser
 - Check for browser extensions that might interfere
+
+### Slow to Load
+
+- If the app takes up to a minute to load, it is starting up from Render's free tier sleep mode. This is normal and will be fast after the first load.
 
 ## Best Practices
 

@@ -1,5 +1,10 @@
 # Secure Chat Application
 
+**Live Demo:** [https://secure-chat-b4pr.onrender.com](https://secure-chat-b4pr.onrender.com)
+
+> This application is deployed on Render with full HTTPS support.  
+> Note: The free Render service may take up to a minute to "wake up" if not accessed recently.
+
 A real-time, end-to-end encrypted chat application built with Node.js, Socket.IO, and modern web technologies. This project demonstrates practical implementation of cybersecurity concepts including encryption, authentication, and secure communication protocols.
 
 ## 🛡️ Security Features
