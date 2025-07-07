@@ -1,5 +1,4 @@
 const express = require('express');
-const https = require('https');
 const socketIo = require('socket.io');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -12,14 +11,26 @@ require('dotenv').config();
 
 const app = express();
 
-// HTTPS options: use self-signed cert for local dev, real cert for production
-const options = {
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-};
+const PORT = process.env.PORT || 3000;
 
-// Create HTTPS server
-const server = https.createServer(options, app);
+let server;
+if (process.env.RENDER || process.env.NODE_ENV === 'production') {
+  // On Render or in production, use HTTP (Render provides HTTPS automatically)
+  server = app.listen(PORT, () => {
+    console.log(`Secure Chat Server running on http://localhost:${PORT} (Render will provide HTTPS)`);
+  });
+} else {
+  // For local development, use HTTPS with self-signed certs
+  const https = require('https');
+  const options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  };
+  server = https.createServer(options, app).listen(PORT, () => {
+    console.log(`Secure Chat Server running on https://localhost:${PORT}`);
+  });
+}
+
 const io = socketIo(server, {
   cors: {
     origin: "*",
@@ -291,10 +302,4 @@ io.on('connection', (socket) => {
 // Serve the main page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Secure Chat Server running on https://localhost:${PORT}`);
-  console.log(`Visit https://localhost:${PORT} to access the application`);
 }); 
